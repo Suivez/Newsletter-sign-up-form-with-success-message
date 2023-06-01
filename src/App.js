@@ -1,10 +1,10 @@
 import './App.css';
-import SignUpState from './components/Signup-state';
+import SignUp from './components/Signup';
 
 function App() {
   return (
     <div className="App">
-      <SignUpState></SignUpState>
+      <SignUp></SignUp>
     </div>
   );
 }

@@ -1,12 +1,11 @@
 import React from 'react'
-import './Signup-state.css';
+import './Signup.css';
 import illustrationDesktop from "../images/illustration-sign-up-desktop.svg";
 import illustrationMobile from "../images/illustration-sign-up-mobile.svg";
 import iconList from "../images/icon-list.svg";
 import iconSuccess from "../images/icon-success.svg";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import {motion} from 'framer-motion';
-// import ImageChange from '../functions/ImageChange';
 
 const succesAnimation = {
     initial: { scale: 0 },
@@ -20,37 +19,17 @@ const succesAnimation = {
     }
 }
 
-const SignupState = () => {
+const Signup = () => {
     const [errorEmail, setErrorEmail] = useState("");
     const [isActiveError, setIsActiveError] = useState(false);
     const [showState, setShowState] = useState(false);
     const inputRefEmail = useRef(null);
 
-    // const useWindowWidth = () => {
-    //     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-
-    //     useEffect(() => {
-    //         const handleWindowResize = () => {
-    //             setWindowWidth(window.innerWidth);
-    //         };
-
-    //         window.addEventListener("resize", handleWindowResize);
-    //         return () => window.removeEventListener("resize", handleWindowResize);
-    //     }, []);
-
-    //     return windowWidth;
-    // };
-
-
-    // const ChangeImage = (largeImage, smallImage) => {
-    //     return useWindowWidth() > 950 ? largeImage : smallImage;
-    // };
-
     function isValidEmail(email) {
         return /\S+@\S+\.\S+/.test(email);
     }
 
-    const onButtonClick = () => {
+    const switchToSignUp = () => {
         setShowState(false)
     }
 
@@ -85,12 +64,12 @@ const SignupState = () => {
                         Please open it and click the button inside to confirm your subscription.
                     </p>
                 </div>
-                <button onClick={onButtonClick}>Dismiss Message</button>
+                <button onClick={switchToSignUp}>Dismiss Message</button>
             </div>
         )
-    }
+    } 
 
-    const signup = () => {
+    const signupState = () => {
         return (
             <div className="container-signup">
                 <div className="side">
@@ -140,9 +119,9 @@ const SignupState = () => {
 
     return (
         <div className="main">
-            {showState ? <div>{thanksState()}</div> : <div>{signup()}</div>}
+            {showState ? <div>{thanksState()}</div> : <div>{signupState()}</div>}
         </div>
     )
 }
 
-export default SignupState;
+export default Signup;
