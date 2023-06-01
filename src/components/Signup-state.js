@@ -1,16 +1,50 @@
 import React from 'react'
 import './Signup-state.css';
 import illustrationDesktop from "../images/illustration-sign-up-desktop.svg";
+import illustrationMobile from "../images/illustration-sign-up-mobile.svg";
 import iconList from "../images/icon-list.svg";
 import iconSuccess from "../images/icon-success.svg";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import {motion} from 'framer-motion';
+// import ImageChange from '../functions/ImageChange';
+
+const succesAnimation = {
+    initial: { scale: 0 },
+    animate: { rotate: 360, scale: 1 },
+    transition: {
+        type: "spring",
+        stiffness: 260,
+        damping: 20,
+        ease: "easeOut",
+        duration: 0.2
+    }
+}
 
 const SignupState = () => {
     const [errorEmail, setErrorEmail] = useState("");
     const [isActiveError, setIsActiveError] = useState(false);
     const [showState, setShowState] = useState(false);
     const inputRefEmail = useRef(null);
+
+    // const useWindowWidth = () => {
+    //     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+    //     useEffect(() => {
+    //         const handleWindowResize = () => {
+    //             setWindowWidth(window.innerWidth);
+    //         };
+
+    //         window.addEventListener("resize", handleWindowResize);
+    //         return () => window.removeEventListener("resize", handleWindowResize);
+    //     }, []);
+
+    //     return windowWidth;
+    // };
+
+
+    // const ChangeImage = (largeImage, smallImage) => {
+    //     return useWindowWidth() > 950 ? largeImage : smallImage;
+    // };
 
     function isValidEmail(email) {
         return /\S+@\S+\.\S+/.test(email);
@@ -43,12 +77,14 @@ const SignupState = () => {
     const thanksState = () => {
         return (
             <div className="container-thank">
-                <img src={iconSuccess} />
-                <h1>Thanks for subscribing!</h1>
-                <p>
-                    A confirmation email has been sent to <span>{currentEmailValue()}</span>. 
-                    Please open it and click the button inside to confirm your subscription.
-                </p>
+                <div>
+                    <motion.div style={{width: "min-content"}} variants={succesAnimation} initial="initial" animate="animate" transition="transition"><img src={iconSuccess} /></motion.div>
+                    <h1>Thanks for subscribing!</h1>
+                    <p>
+                        A confirmation email has been sent to <span>{currentEmailValue()}</span>. 
+                        Please open it and click the button inside to confirm your subscription.
+                    </p>
+                </div>
                 <button onClick={onButtonClick}>Dismiss Message</button>
             </div>
         )
@@ -64,15 +100,15 @@ const SignupState = () => {
                     <p>Join 60,000+ product managers receiving monthly updates on:</p>
                     <div className="list-box">
                         <div className="single-list">
-                            <img src={iconList} />
+                            <motion.img variants={succesAnimation} initial="initial" animate="animate" transition="transition" src={iconList} />
                             <p>Product discovery and building what matters</p>
                         </div>
                         <div className="single-list">
-                            <img src={iconList} />
+                            <motion.img variants={succesAnimation} initial="initial" animate="animate" transition="transition" src={iconList} />
                             <p>Measuring to ensure updates are a success</p>
                         </div>
                         <div className="single-list">
-                            <img src={iconList} />
+                            <motion.img variants={succesAnimation} initial="initial" animate="animate" transition="transition" src={iconList} />
                             <p>And much more!</p>
                         </div>
                     </div>
@@ -94,9 +130,10 @@ const SignupState = () => {
                         <button onClick={submitEmail}>Subscribe to monthly newsletter</button>
                     </div>
                 </div>
-                <div className="side">
+                <picture className="side">
+                    <source media="(max-width: 950px)" srcSet={illustrationMobile} />
                     <img src={illustrationDesktop} />
-                </div>
+                </picture>
             </div>
         )
     }
@@ -108,4 +145,4 @@ const SignupState = () => {
     )
 }
 
-export default SignupState
+export default SignupState;
